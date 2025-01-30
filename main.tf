@@ -7,7 +7,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-##################################################
+#
 resource "aws_subnet" "public_subnet_1" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr_block_1
@@ -44,7 +44,8 @@ resource "aws_route_table_association" "public_assoc_2" {
 
 
 data "aws_availability_zones" "available" {}
-##################################################
+
+#
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
@@ -67,9 +68,7 @@ resource "aws_route" "public_default_route" {
   gateway_id             = aws_internet_gateway.main.id
 }
 
-
-#########################################################
-
+#
 resource "aws_subnet" "private_subnet_1" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.private_subnet_cidr_block_1
@@ -145,8 +144,6 @@ resource "aws_route_table" "private_route_table_2" {
   }
 }
 
-
-
 resource "aws_route" "private_default_route_1" {
   route_table_id         = aws_route_table.private_route_table_1.id
   destination_cidr_block = "0.0.0.0/0"
@@ -158,7 +155,6 @@ resource "aws_route" "private_default_route_2" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.nat_gateway_2.id
 }
-
 
 resource "aws_route_table_association" "private_assoc_1" {
   subnet_id      = aws_subnet.private_subnet_1.id
